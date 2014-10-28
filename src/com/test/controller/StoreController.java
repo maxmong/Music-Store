@@ -16,7 +16,7 @@ public class StoreController {
 	 @RequestMapping("/Store")
 	    public ModelAndView Index() {
 	 
-		 List<String> genre = new ArrayList<>();
+		 List<String> genre = new ArrayList<String>();
 		 genre.add("Jazz");
 		 genre.add("Blues");
 		 genre.add("POP");

@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-     this is the store page!!!!<br>
+     Browse the genres<br>
      
      
      message: ${message} <br>
