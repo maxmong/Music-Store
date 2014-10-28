@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.test.dao.GenreDao;
 import com.test.dao.W_basketDao;
 import com.test.model.W_basket;
 
@@ -37,8 +38,10 @@ public class ExploreMVC {
 		 // W_basketDao wb = (W_basketDao)ctx.getBean("edao");
 		  
 		  //int message = wb.saveBasket(b);
+		  GenreDao gd = (GenreDao)ctx.getBean("edao");
+		  int count = gd.genreIndex();
 		  String message = "just for test";
 		  System.out.println("this is user controller");
-		  return new ModelAndView("w_basket_test", "message", message);
+		  return new ModelAndView("w_basket_test", "message", count);
 	  }
 }

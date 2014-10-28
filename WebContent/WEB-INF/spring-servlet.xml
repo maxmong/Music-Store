@@ -35,7 +35,7 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
         <property name="dataSource" ref="ds"></property>  
     </bean>  
   
-    <bean id="edao" class="com.test.dao.W_basketDao">  
+    <bean id="edao" class="com.test.dao.GenreDao">  
         <property name="jdbcTemplate" ref="jdbcTemplate"></property>  
     </bean> 
 </beans>
