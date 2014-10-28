@@ -19,6 +19,7 @@
     
     <a href="login">Register a new account</a>
     
+    <a href="w_basket">testing the w_basket</a>
     
     </pre>
 </body>
