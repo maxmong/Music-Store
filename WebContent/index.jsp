@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>Spring 3.0 MVC Series: Index - ViralPatel.net</title>
+    <title>Music Store production</title>
 </head>
 <body>
     <pre>
@@ -21,6 +21,9 @@
     
     <a href="w_basket">testing the w_basket</a>
     
+    
+    <a href="addSeeds">Add seeds</a>
+    <a href="resetSeeds">Reset seeds</a>
     </pre>
 </body>
 </html>

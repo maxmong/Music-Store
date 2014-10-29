@@ -2,6 +2,9 @@ package com.test.dao;
 
 
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.jdbc.core.JdbcTemplate;
 
 public class GenreDao {
@@ -12,11 +15,13 @@ public class GenreDao {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 	
-	public int genreIndex(){
+	public List<Map<String, Object>>genreIndex(){
 		
-		//String sql = "SELECT description from w_basket";
-		int rowCount = this.jdbcTemplate.queryForObject("select count(*) from w_basket", Integer.class);
-		return rowCount;
+		String sql = "SELECT name FROM genre";
+		List<Map<String,Object>> results = this.jdbcTemplate.queryForList(sql);
+		
+		//int rowCount = this.jdbcTemplate.queryForInt("SELECT COUNT(*) FROM ADDRESS");
+		return results;
 		
 	}
 }

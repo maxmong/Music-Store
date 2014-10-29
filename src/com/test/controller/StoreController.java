@@ -3,6 +3,8 @@ package com.test.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +18,10 @@ public class StoreController {
 	 @RequestMapping("/Store")
 	    public ModelAndView Index() {
 	 
+		 ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+		 
+		 
+		 
 		 List<String> genre = new ArrayList<String>();
 		 genre.add("Jazz");
 		 genre.add("Blues");
