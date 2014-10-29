@@ -2,6 +2,7 @@ package com.test.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.test.dao.GenreDao;
+
 @Controller
 public class StoreController {
 
@@ -19,14 +22,9 @@ public class StoreController {
 	    public ModelAndView Index() {
 	 
 		 ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+		 GenreDao gd = (GenreDao)ctx.getBean("edao");
+		 List<Map<String, Object>> genre = gd.genreIndex();
 		 
-		 
-		 
-		 List<String> genre = new ArrayList<String>();
-		 genre.add("Jazz");
-		 genre.add("Blues");
-		 genre.add("POP");
-	     System.out.println(genre);
 	     return new ModelAndView("store", "message", genre);
 	    }
 	 
@@ -38,7 +36,11 @@ public class StoreController {
 	  }
 	  @RequestMapping(value="/Store/Browse/{genre}", method=RequestMethod.GET)
 	  public ModelAndView findGenre(@PathVariable String genre, Model model){
-		  return new ModelAndView("store", "message", genre);
+		  
+		  ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+		  GenreDao gd = (GenreDao)ctx.getBean("edao");
+		  List<Map<String, Object>> albums = gd.genreBrowse(gd.genreId(genre));
+		  return new ModelAndView("store", "genreMsg", albums);
 	  }
 	  @RequestMapping("/Store/Details")
 	  public ModelAndView Details(){

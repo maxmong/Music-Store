@@ -55,9 +55,9 @@ public class ExploreMVC {
 		  ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
 		  
 		  SeedsDao sd = (SeedsDao)ctx.getBean("sdao");
-		  int rowCount = sd.addSeeds();
-		  String message = "this is to add seeds";
-		  return new ModelAndView("hello","message","inserted " + rowCount + " items");
+		  String seedMsg = sd.addSeeds();
+		  
+		  return new ModelAndView("hello","message",seedMsg);
 	  }
 	  @RequestMapping("/resetSeeds")
 	  public ModelAndView resetSeeds(){
@@ -69,4 +69,12 @@ public class ExploreMVC {
 		  
 		  return new ModelAndView("hello","message","DROP TABLE GENRE SUCCESSFULLY! ");
 	  }
+	  @RequestMapping("/testTag")
+	    public ModelAndView testTag() {
+	 
+	        String message = "tag";
+	        System.out.println(message);
+	        return new ModelAndView("testTag", "message", message);
+	    }
+	  
 }
