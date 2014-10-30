@@ -4,14 +4,23 @@ import java.util.List;
 
 public class Genre {
 
-	  public int genreId;
+	  public Long genreId;
 	  public String name;
 	  public String descrption;
-	  public List<Album> albums;
-	public int getGenreId() {
+	  //public List<Album> albums;
+	  
+	  
+	public Genre(Long genreId, String name, String descrption) {
+		super();
+		this.genreId = genreId;
+		this.name = name;
+		this.descrption = descrption;
+		//this.albums = albums;
+	}
+	public Long getGenreId() {
 		return genreId;
 	}
-	public void setGenreId(int genreId) {
+	public void setGenreId(Long genreId) {
 		this.genreId = genreId;
 	}
 	public String getName() {
@@ -26,12 +35,12 @@ public class Genre {
 	public void setDescrption(String descrption) {
 		this.descrption = descrption;
 	}
-	public List<Album> getAlbums() {
-		return albums;
-	}
-	public void setAlbums(List<Album> albums) {
-		this.albums = albums;
-	}
+//	public List<Album> getAlbums() {
+//		return albums;
+//	}
+//	public void setAlbums(List<Album> albums) {
+//		this.albums = albums;
+//	}
 	  
 	  
 }
