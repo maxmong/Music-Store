@@ -5,17 +5,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.sql.DataSource;
 
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-
-import com.sun.crypto.provider.RSACipher;
 import com.test.dao.GenreDao;
 import com.test.model.Genre;
-import com.test.orm.GenreRowMapper;
 
 public class GenreDaoImpl implements GenreDao {
 	
@@ -57,7 +52,7 @@ public class GenreDaoImpl implements GenreDao {
 
 	@Override
 	public List<Genre> genreBrowse(int genreId) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 

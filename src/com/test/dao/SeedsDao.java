@@ -1,6 +1,18 @@
 package com.test.dao;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.sql.Connection;
+import java.sql.SQLException;
+
+import javax.sql.DataSource;
+
+import org.apache.ibatis.jdbc.ScriptRunner;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DataSourceUtils;
 
 public class SeedsDao {
 
@@ -12,7 +24,27 @@ public class SeedsDao {
 	
     public String addSeeds(){
 		
-    	//table genre
+    	Connection con = null;
+    	try {
+			con = jdbcTemplate.getDataSource().getConnection();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	ScriptRunner sr = new ScriptRunner(con);
+    	Reader reader;
+		try {
+			reader = new BufferedReader(new FileReader("/test.sql"));
+			
+			InputStreamReader id = new InputStreamReader(null);sr.runScript(reader);
+		} catch (FileNotFoundException e) {
+			
+			e.printStackTrace();
+		}
+    
+		//String workingdirectory = System.getProperty("user.dir");
+		//System.out.println(workingdirectory);
+    	
 		String sql_genre = "CREATE TABLE GENRE( "
 				+ "genreId    NUMBER       NOT NULL  ,"
 				+ " name     CHAR(60)      NOT NULL  ,"
@@ -66,6 +98,16 @@ public class SeedsDao {
 				+ "VALUES(14, 'Apocalyptica')");
 		this.jdbcTemplate.execute("INSERT INTO ARTIST(artistId, name) "
 				+ "VALUES(15, 'Audioslave')");
+		this.jdbcTemplate.execute("INSERT INTO ARTIST(artistId, name) "
+				+ "VALUES(16, 'Barry Wordsworth & BBC Concert Orchestra')");
+		this.jdbcTemplate.execute("INSERT INTO ARTIST(artistId, name) "
+				+ "VALUES(17, 'Berliner Philharmoniker & Hans Rosbaud')");
+		this.jdbcTemplate.execute("INSERT INTO ARTIST(artistId, name) "
+				+ "VALUES(18, 'Berliner Philharmoniker & Herbert Von Karajan')");
+		this.jdbcTemplate.execute("INSERT INTO ARTIST(artistId, name) "
+				+ "VALUES(19, 'Billy Cobham')");
+		this.jdbcTemplate.execute("INSERT INTO ARTIST(artistId, name) "
+				+ "VALUES(20, 'Black Label Society')");
 		
 		//table album
 		String sql_album = "CREATE TABLE ALBUM(albumId NUMBER NOT NULL, "
@@ -78,6 +120,8 @@ public class SeedsDao {
 		this.jdbcTemplate.execute(sql_album);
 		this.jdbcTemplate.execute("INSERT INTO ALBUM(albumId, genreId, artistId, title, price, albumArtUrl) "
 				+ "VALUES(1, 4, 1, 'The Best Of Men At Work', 8.99, '/Content/Images/placeholder.gif')");
+		this.jdbcTemplate.execute("INSERT INTO ALBUM(albumId, genreId, artistId, title, price, albumArtUrl) "
+				+ "VALUES(2, 5, 2, 'Worlds', 8.99, '/Content/Images/placeholder.gif')");
 		int rowCount_genre = this.jdbcTemplate.queryForInt("SELECT COUNT(*) FROM GENRE");
 		
 		//counts
