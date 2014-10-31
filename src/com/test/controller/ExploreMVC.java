@@ -1,6 +1,5 @@
 package com.test.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -12,8 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.test.dao.GenreDao;
 import com.test.dao.SeedsDao;
-import com.test.dao.W_basketDao;
-import com.test.model.W_basket;
+import com.test.model.Genre;
 
 @Controller
 public class ExploreMVC {
@@ -36,15 +34,9 @@ public class ExploreMVC {
 		  
 		  ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
 		  
-		 // W_basket b = new W_basket();
-		  //b.setId(24);
-		  //b.setType(56);
-		 // b.setDescription("fdfdfddddd");
-		 // W_basketDao wb = (W_basketDao)ctx.getBean("edao");
-		  
-		  //int message = wb.saveBasket(b);
+		
 		  GenreDao gd = (GenreDao)ctx.getBean("edao");
-		  List<Map<String, Object>> count = gd.genreIndex();
+		  List<Genre> count = gd.genreIndex();
 		
 		  System.out.println("this is user controller");
 		  return new ModelAndView("w_basket_test", "message", count);
@@ -54,7 +46,7 @@ public class ExploreMVC {
 		  
 		  ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
 		  
-		  SeedsDao sd = (SeedsDao)ctx.getBean("sdao");
+		  SeedsDao sd = (SeedsDao)ctx.getBean("seedsDao");
 		  String seedMsg = sd.addSeeds();
 		  
 		  return new ModelAndView("hello","message",seedMsg);
@@ -64,7 +56,7 @@ public class ExploreMVC {
 		  
           ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
 		  
-		  SeedsDao sd = (SeedsDao)ctx.getBean("sdao");
+		  SeedsDao sd = (SeedsDao)ctx.getBean("seedsDao");
 		  sd.resetSeeds();
 		  
 		  return new ModelAndView("hello","message","DROP TABLE GENRE SUCCESSFULLY! ");

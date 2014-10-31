@@ -28,7 +28,7 @@ public class StoreController {
 	  
 	
 		 ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
-		 GenreDaoImpl gd = (GenreDaoImpl)ctx.getBean("edao");
+		 GenreDao gd = ctx.getBean("genreDao", GenreDao.class);
 		 List<Genre> genre = gd.genreIndex();
 		 
 	     return new ModelAndView("store", "message", genre);
