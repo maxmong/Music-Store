@@ -24,23 +24,7 @@ public class SeedsDao {
 	
     public String addSeeds(){
 		
-    	Connection con = null;
-    	try {
-			con = jdbcTemplate.getDataSource().getConnection();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	ScriptRunner sr = new ScriptRunner(con);
-    	Reader reader;
-		try {
-			reader = new BufferedReader(new FileReader("/test.sql"));
-			
-			InputStreamReader id = new InputStreamReader(null);sr.runScript(reader);
-		} catch (FileNotFoundException e) {
-			
-			e.printStackTrace();
-		}
+    	
     
 		//String workingdirectory = System.getProperty("user.dir");
 		//System.out.println(workingdirectory);
@@ -110,24 +94,49 @@ public class SeedsDao {
 				+ "VALUES(20, 'Black Label Society')");
 		
 		//table album
-		String sql_album = "CREATE TABLE ALBUM(albumId NUMBER NOT NULL, "
-				+ "genreId NUMBER, "
-				+ "artistId NUMBER, "
-				+ "title CHAR(90), "
-				+ "price NUMBER(4,2),"
-				+ "albumArtUrl CHAR(50),"
-				+ "CONSTRAINT PK_ALBUM PRIMARY KEY (albumId))";
-		this.jdbcTemplate.execute(sql_album);
-		this.jdbcTemplate.execute("INSERT INTO ALBUM(albumId, genreId, artistId, title, price, albumArtUrl) "
-				+ "VALUES(1, 4, 1, 'The Best Of Men At Work', 8.99, '/Content/Images/placeholder.gif')");
-		this.jdbcTemplate.execute("INSERT INTO ALBUM(albumId, genreId, artistId, title, price, albumArtUrl) "
-				+ "VALUES(2, 5, 2, 'Worlds', 8.99, '/Content/Images/placeholder.gif')");
-		int rowCount_genre = this.jdbcTemplate.queryForInt("SELECT COUNT(*) FROM GENRE");
+//		String sql_album = "CREATE TABLE ALBUM(albumId NUMBER NOT NULL, "
+//				+ "genreId NUMBER, "
+//				+ "artistId NUMBER, "
+//				+ "title CHAR(90), "
+//				+ "price NUMBER(4,2),"
+//				+ "albumArtUrl CHAR(50),"
+//				+ "CONSTRAINT PK_ALBUM PRIMARY KEY (albumId))";
+//		this.jdbcTemplate.execute(sql_album);
+//		this.jdbcTemplate.execute("INSERT INTO ALBUM(albumId, genreId, artistId, title, price, albumArtUrl) "
+//				+ "VALUES(1, 4, 1, 'The Best Of Men At Work', 8.99, '/Content/Images/placeholder.gif')");
+//		this.jdbcTemplate.execute("INSERT INTO ALBUM(albumId, genreId, artistId, title, price, albumArtUrl) "
+//				+ "VALUES(2, 5, 2, 'Worlds', 8.99, '/Content/Images/placeholder.gif')");
+//		int rowCount_genre = this.jdbcTemplate.queryForInt("SELECT COUNT(*) FROM GENRE");
+		
+		//USE APACHE BATIS FOR TEST 
+		Connection con = null;
+    	try {
+			con = jdbcTemplate.getDataSource().getConnection();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	ScriptRunner sr = new ScriptRunner(con);
+    	Reader reader;
+		try {
+			reader = new BufferedReader(new FileReader("C:/Users/Yien/Documents/GitHub/Music-Store/resourses/test.sql"));
+			
+			//InputStreamReader id = new InputStreamReader(null);
+			sr.runScript(reader);
+		
+			
+		} catch (FileNotFoundException e) {
+			
+			e.printStackTrace();
+		}
 		
 		//counts
 		int rowCount_album = this.jdbcTemplate.queryForInt("SELECT COUNT(*) FROM ALBUM");
 		int rowCount_artist = this.jdbcTemplate.queryForInt("SELECT COUNT(*) FROM ARTIST");
-		return "INSERT INTO GENRE " + rowCount_genre + " items<br> INSERT INTO ALBUM " + rowCount_album + " items<br> INSERT INTO ARTIST "+rowCount_artist+" items";	
+		return "INSERT INTO GENRE " + " items<br> INSERT INTO ALBUM " + rowCount_album + " items<br> INSERT INTO ARTIST "+rowCount_artist+" items";
+		
+		
+	
 	}
     
     public void resetSeeds(){
