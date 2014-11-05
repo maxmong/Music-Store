@@ -6,15 +6,20 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
+import org.springframework.jdbc.core.JdbcTemplate;
+
 import com.test.dao.GenreDao;
+import com.test.model.Album;
 import com.test.model.Genre;
 
 public class GenreDaoImpl implements GenreDao {
 	
 	private static final String GET_ALL_SQL = "SELECT genreId, name, description FROM GENRE";
+    private static final String FIND_ONE ="SELECT name, description FROM GENRE WHERE genreId = ?";
     
 	private DataSource dataSource;
 	public void setDataSource(DataSource dataSource) {
@@ -52,8 +57,19 @@ public class GenreDaoImpl implements GenreDao {
 
 	@Override
 	public List<Genre> genreBrowse(int genreId) {
+		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+		List<Genre> genreList = new ArrayList<Genre>();
 		
-		return null;
+       List<Map<String,Object>> genreRows = jdbcTemplate.queryForList(FIND_ONE, genreId);
+		
+	   for(Map<String,Object> genreRow : genreRows){
+			Genre alb = new Genre();
+			
+			alb.setName(String.valueOf(genreRow.get("name")));
+			
+			genreList.add(alb);
+		}
+		return genreList;
 	}
 
 	@Override

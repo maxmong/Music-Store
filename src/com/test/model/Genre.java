@@ -9,7 +9,9 @@ public class Genre {
 	  public String descrption;
 	  //public List<Album> albums;
 	  
-	  
+	public Genre(){
+		
+	}
 	public Genre(Long genreId, String name, String descrption) {
 		super();
 		this.genreId = genreId;

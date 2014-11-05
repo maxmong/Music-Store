@@ -29,6 +29,8 @@
     
     <a href="addSeeds">Add seeds</a>
     <a href="resetSeeds">Reset seeds</a>
+    
+    <a href="StoreManager">Store Manager</a>
     </pre>
     </jsp:body>
 </t:genericpage>

@@ -33,7 +33,7 @@ public class StoreController {
 		 GenreDao gd = ctx.getBean("genreDao", GenreDao.class);
 		 List<Genre> genre = gd.genreIndex();
 		 
-	     return new ModelAndView("store", "message", genre);
+	     return new ModelAndView("store", "genreMsg", genre);
 	    }
 	 
 	  @RequestMapping("/Store/Browse")
@@ -62,7 +62,13 @@ public class StoreController {
 	  }
 	  @RequestMapping(value="/Store/Details/{id}", method=RequestMethod.GET)
 	  public ModelAndView findDetail(@PathVariable int id, Model model){
-		  String message = "Albumn: " + id;
-		  return new ModelAndView("store", "message", message);
+		  ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+		  AlbumDao ad = ctx.getBean("albumDao", AlbumDao.class);
+		  List<Album> album= ad.albumBrowse(id);
+		  
+		  
+		  System.out.println(album);
+		  //String message = "Albumn: " + id;
+		  return new ModelAndView("store", "browse_album", album);
 	  }
 }

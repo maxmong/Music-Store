@@ -37,9 +37,9 @@ public class SeedsDao {
     	Reader genre_reader;
     	Reader artist_reader;
 		try {
-			album_reader = new BufferedReader(new FileReader("C:/Users/Yien/Documents/GitHub/Music-Store/resourses/albumSeeds.sql"));
-			genre_reader = new BufferedReader(new FileReader("C:/Users/Yien/Documents/GitHub/Music-Store/resourses/genreSeeds.sql"));
-			artist_reader = new BufferedReader(new FileReader("C:/Users/Yien/Documents/GitHub/Music-Store/resourses/artistSeeds.sql"));
+			album_reader = new BufferedReader(new FileReader("C:/Users/01438407/git/Music-Store/resourses/albumSeeds.sql"));
+			genre_reader = new BufferedReader(new FileReader("C:/Users/01438407/git/Music-Store/resourses/genreSeeds.sql"));
+			artist_reader = new BufferedReader(new FileReader("C:/Users/01438407/git/Music-Store/resourses/artistSeeds.sql"));
 			//InputStreamReader id = new InputStreamReader(null);
 			sr.runScript(album_reader);
 			sr.runScript(genre_reader);

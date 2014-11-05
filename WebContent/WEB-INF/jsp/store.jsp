@@ -10,15 +10,23 @@
     </jsp:attribute>
     <jsp:body>
       <ul>
-      <c:forEach var="message" items="${message }">
-       <li><a href="Store/Browse/${message.genreId }">${message.name}</a></li>
+      <c:forEach var="genreMsg" items="${genreMsg }">
+       <li><a href="Store/Browse/${genreMsg.genreId }">${genreMsg.name}</a></li>
       </c:forEach>
       </ul>
-      ${genreMsg.title }
+
+      
+     
+      
+        <ul>
+      <c:forEach var="browse_album" items="${browse_album }">
+       <li><a href="#">${browse_album.title}</a></li>
+      </c:forEach>
+      </ul>
       
       <ul>
       <c:forEach var="sort_by_genre" items="${sort_by_genre }">
-       <li><a href="Store/Browse/${sort_by_genre.title }">${sort_by_genre.title}</a></li>
+       <li><a href="../Details/${sort_by_genre.albumId}">${sort_by_genre.title}</a></li>
       </c:forEach>
       </ul>
     </jsp:body>
