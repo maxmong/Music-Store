@@ -15,14 +15,9 @@
       </c:forEach>
       </ul>
 
-      
+       <a href="#">${browse_album.title}</a>
      
-      
-        <ul>
-      <c:forEach var="browse_album" items="${browse_album }">
-       <li><a href="#">${browse_album.title}</a></li>
-      </c:forEach>
-      </ul>
+    
       
       <ul>
       <c:forEach var="sort_by_genre" items="${sort_by_genre }">

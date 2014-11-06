@@ -64,11 +64,8 @@ public class StoreController {
 	  public ModelAndView findDetail(@PathVariable int id, Model model){
 		  ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
 		  AlbumDao ad = ctx.getBean("albumDao", AlbumDao.class);
-		  List<Album> album= ad.albumBrowse(id);
+		  Album album= ad.albumBrowse(id);
 		  
-		  
-		  System.out.println(album);
-		  //String message = "Albumn: " + id;
 		  return new ModelAndView("store", "browse_album", album);
 	  }
 }

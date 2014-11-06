@@ -56,18 +56,15 @@ public class GenreDaoImpl implements GenreDao {
 	}
 
 	@Override
-	public List<Genre> genreBrowse(int genreId) {
+	public Genre genreBrowse(int genreId) {
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-		List<Genre> genreList = new ArrayList<Genre>();
+		Genre genreList = new Genre();
 		
        List<Map<String,Object>> genreRows = jdbcTemplate.queryForList(FIND_ONE, genreId);
 		
 	   for(Map<String,Object> genreRow : genreRows){
-			Genre alb = new Genre();
 			
-			alb.setName(String.valueOf(genreRow.get("name")));
-			
-			genreList.add(alb);
+			genreList.setName(String.valueOf(genreRow.get("name")));
 		}
 		return genreList;
 	}

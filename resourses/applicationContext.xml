@@ -8,9 +8,9 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
   
  <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">  
         <property name="driverClassName" value="oracle.jdbc.OracleDriver" />  
-        <property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />  
-        <property name="username" value="system" />  
-        <property name="password" value="Mr5418788" />  
+        <property name="url" value="jdbc:oracle:thin:@10.87.120.194:1521:sbsit" />  
+        <property name="username" value="ops$cnm" />  
+        <property name="password" value="cnm" />  
     </bean>  
   <bean id="genreDao" class="com.test.dao.impl.GenreDaoImpl">
         <property name="dataSource" ref="dataSource" />
@@ -24,6 +24,9 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
         <property name="jdbcTemplate" ref="jdbcTemplate" />
   </bean>
   <bean id="albumDao" class="com.test.dao.impl.AlbumDaoImpl">
+        <property name="dataSource" ref="dataSource" />
+  </bean>
+   <bean id="artistDao" class="com.test.dao.impl.ArtistDaoImpl">
         <property name="dataSource" ref="dataSource" />
   </bean>
 

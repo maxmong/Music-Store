@@ -9,7 +9,7 @@ public interface GenreDao {
 
 
 	public List<Genre> genreIndex();
-	public List<Genre> genreBrowse(int genreId);
+	public Genre genreBrowse(int genreId);
 	public void genreCreate(Genre genre);
 	public void genreUpdate(Genre genre);
 	public void genreDelete(Long genreId);

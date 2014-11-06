@@ -1,6 +1,7 @@
 package com.test.model;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class Album {
     public int albumId;
@@ -11,7 +12,13 @@ public class Album {
     public String albumArtUrl;
     
     public Genre genre;
-    public Artist artist;
+	public Genre getGenre() {
+		return genre;
+	}
+	public void setGenre(Genre genre) {
+		this.genre = genre;
+	}
+	public Artist artist;
 	public int getAlbumId() {
 		return albumId;
 	}
@@ -48,17 +55,12 @@ public class Album {
 	public void setAlbumArtUrl(String albumArtUrl) {
 		this.albumArtUrl = albumArtUrl;
 	}
-	public Genre getGenre() {
-		return genre;
-	}
-	public void setGenre(Genre genre) {
-		this.genre = genre;
-	}
+
 	public Artist getArtist() {
 		return artist;
 	}
-	public void setArtist(Artist artist) {
-		this.artist = artist;
+	public void setArtist(Artist list) {
+		this.artist = list;
 	}
     
     

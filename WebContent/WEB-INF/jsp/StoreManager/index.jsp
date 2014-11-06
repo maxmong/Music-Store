@@ -3,16 +3,18 @@
     pageEncoding="UTF-8"%>
 
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
+
+<t:genericpage>
+    <jsp:attribute name="header">    
+    </jsp:attribute>
+    <jsp:attribute name="footer">  
+    </jsp:attribute>
+    <jsp:body>
+     
+ 
    
       <h2>Index</h2>
-      <table>
+      <table class="table table-hover">
         
          <tr>
              <th>Genre</th>
@@ -21,27 +23,31 @@
              <th>Price</th>
              <th></th>
          </tr>
-       
-           <c:forEach var="album" items="${model.albumList}">
+         <tbody>
+           <c:forEach var="album" items="${model.albumList}" varStatus="status">
               <tr>
                  <td> 
-                     ${album.genreId}
+                     <a href="Store/Browse/${album.genreId}">${album.genre.name}</a>
+<%--                      index:<c:out value="${status.index}"></c:out><br/> --%>
+<%--                      count:<c:out value="${status['count']}"></c:out><br/> --%>
+<%--                      first:<c:out value="${status['first']}"></c:out><br/> --%>
+<%--                      last:<c:out value="${status['last']}"></c:out><br/> --%>
                  </td>
-                 <td>${album.artistId}</td>
-                 <td>${album.title }</td>
-                 <td>${album.price }</td>
+                 <td><a href=""></a>${album.artist.name}</td>
+                 <td><a href="Store/Details/${album.albumId}">${album.title }</a></td>
+                 <td>${album.price}</td>
                  <td>
-                 <a href="StoreManager/Create">Create</a>
-                 <a href="StoreManager/Details">Details</a>
-                 <a href="StoreManager/Delete">Delete</a>
+                 <a href="StoreManager/Edit/${album.albumId }">Edit</a>
+                 <a href="StoreManager/Details/${album.albumId }">Details</a>
+                 <a href="StoreManager/Delete/${album.albumId }">Delete</a>
                   
                  </td>
               </tr>
              
            </c:forEach>
+           </tbody>
       </table>
+      ${msg }
        
-     
- 
-</body>
-</html>
+ </jsp:body>
+ </t:genericpage>
