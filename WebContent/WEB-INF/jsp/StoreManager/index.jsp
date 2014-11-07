@@ -14,6 +14,7 @@
  
    
       <h2>Index</h2>
+      <h3><a href="StoreManager/Create">Create New</a></h3>
       <table class="table table-hover">
         
          <tr>

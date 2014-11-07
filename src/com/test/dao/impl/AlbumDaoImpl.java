@@ -84,6 +84,7 @@ public class AlbumDaoImpl implements AlbumDao {
 			int artistId = Integer.parseInt(albumRow.get("artistId").toString());
 			int genreId = Integer.parseInt(albumRow.get("genreId").toString());
 			
+			alb.setAlbumId(albumId);
 			alb.setTitle(String.valueOf(albumRow.get("title")));
 			alb.setGenreId(genreId);
 			alb.setGenre(gd.genreBrowse(genreId));
