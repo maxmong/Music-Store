@@ -1,5 +1,6 @@
 package com.test.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +8,7 @@ import java.util.Map;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,9 +24,19 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 
+
+
+
+
+
+
+
 import com.test.dao.AlbumDao;
+import com.test.dao.ArtistDao;
 import com.test.dao.GenreDao;
 import com.test.model.Album;
+import com.test.model.Artist;
+import com.test.model.Genre;
 
 @Controller
 public class StoreManagerController {
@@ -32,7 +44,9 @@ public class StoreManagerController {
 	
 	ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
 	AlbumDao ad = ctx.getBean("albumDao", AlbumDao.class);
-	 
+	GenreDao gd = ctx.getBean("genreDao", GenreDao.class); 
+	ArtistDao artd = ctx.getBean("artistDao", ArtistDao.class); 
+	
 	
 	Map<String, Object> model = new HashMap<String, Object>();
 	 @RequestMapping("/StoreManager")
@@ -63,15 +77,42 @@ public class StoreManagerController {
 		 return "albumSuccess";
 	 }
 	 
-	 @RequestMapping("StoreManager/Edit/{albumId}")
-	    public ModelAndView Edit(@PathVariable int albumId){
+	 @RequestMapping(value = "StoreManager/Edit/{albumId}", method = RequestMethod.GET)
+	    public ModelAndView Edit(@PathVariable int albumId, Model m){
 		
 		Album albumEdit= ad.albumBrowse(albumId);
-		
+	    List<Genre> genreList = gd.genreIndex();
+	    Map< Integer, String > artistMap = artd.artistIndex();
+	    
+	    
+	    Map< Long, String > genreMap = new HashMap<Long, String>();
+
+	    for(int i=0; i<genreList.size(); i++){
+	  
+	    	genreMap.put(genreList.get(i).genreId, genreList.get(i).name);
+	    }
 		model.put("albumEdit", albumEdit);
-		 
+		model.put("genreMap", genreMap);
+		model.put("artistMap",artistMap);
+  
+	
+	    m.addAttribute("command", new Album());
 		return new ModelAndView("StoreManager/edit","model",model);
 	 }
+	 @RequestMapping(value = "StoreManager/editAlbum", method=RequestMethod.POST)
+	 public String editAlbum(@ModelAttribute Album album, Model m){
+		
+		 m.addAttribute("price", album.getPrice());
+		 m.addAttribute("genreId", album.getGenreId());
+		 m.addAttribute("artistId", album.getArtistId());
+		 m.addAttribute("title", album.getTitle());
+		 m.addAttribute("price", album.getPrice());
+		 m.addAttribute("albumArtUrl", album.getAlbumArtUrl());
+		 ad.albumUpdate(album);
+		 return "result";
+	 }
+
+	 
 	 @RequestMapping("StoreManager/Details/{albumId}")
 	    public ModelAndView Detail(@PathVariable int albumId){
 		

@@ -27,7 +27,7 @@ public class AlbumDaoImpl implements AlbumDao {
 	private static final String BROWSE_ALBUM_BY_ID = "SELECT genreId, artistId, title, price, albumArtUrl FROM ALBUM WHERE albumId = ?";
 	private static final String SORT_BY_GENRE = "SELECT title, albumId FROM ALBUM WHERE genreId = ?";
 	private static final String ALBUM_INDEX = "SELECT albumId, genreId, artistId, title, price, albumArtUrl FROM ALBUM";
-	
+	private static final String UPDATE_ALBUM = "UPDATE ALBUM SET genreId=?, artistId=?, title=?, price=?, albumArtUrl WHERE albumId=?";
 
 	
 	@Override
@@ -109,13 +109,16 @@ public class AlbumDaoImpl implements AlbumDao {
 
 	@Override
 	public void albumUpdate(Album album) {
-		// TODO Auto-generated method stub
-
+		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+		System.out.println(album.getGenreId());
+		jdbcTemplate.update(UPDATE_ALBUM, album.getGenreId(),album.getArtistId(),album.getTitle(),album.getPrice(),album.getAlbumArtUrl(),album.getAlbumId());
+		)
+		return;
 	}
 
 	@Override
 	public void albumDelete(Long albumId) {
-		// TODO Auto-generated method stub
+		
 
 	}
 
@@ -130,8 +133,6 @@ public class AlbumDaoImpl implements AlbumDao {
 			Album alb = new Album();
 			alb.setTitle(String.valueOf(albumRow.get("title")));
 			
-			//alb.setAlbumId(Integer.parseInt((String) albumRow.get("albumId")));
-			//System.out.println(albumRow.get("albumId").getClass().getSimpleName());
 			int test = Integer.parseInt(albumRow.get("albumId").toString());
 			
 			

@@ -1,6 +1,6 @@
 package com.test.dao.impl;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,7 +9,7 @@ import javax.sql.DataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.test.dao.ArtistDao;
-import com.test.model.Album;
+
 import com.test.model.Artist;
 
 public class ArtistDaoImpl implements ArtistDao {
@@ -20,10 +20,21 @@ public class ArtistDaoImpl implements ArtistDao {
 	}
 	
 	private static final String GET_ONE_BY_ID = "SELECT * FROM ARTIST WHERE artistId = ?";
+	private static final String FIND_ALL = "SELECT * FROM ARTIST";
 	@Override
-	public List<Artist> artistIndex() {
-		// TODO Auto-generated method stub
-		return null;
+	public Map< Integer, String > artistIndex() {
+		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+		
+		Map< Integer, String > alb =  new HashMap<Integer, String>();
+		
+		List<Map<String,Object>> artistRows = jdbcTemplate.queryForList(FIND_ALL);
+		
+		for(Map<String,Object> artistRow : artistRows){
+			int aId = Integer.valueOf(artistRow.get("artistId").toString());
+			alb.put(aId, String.valueOf(artistRow.get("name")));
+	
+		}
+		return alb;
 	}
 
 	@Override
