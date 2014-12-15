@@ -1,6 +1,7 @@
 package com.test.dao.impl;
 
 import java.math.BigDecimal;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -27,9 +28,9 @@ public class AlbumDaoImpl implements AlbumDao {
 	private static final String BROWSE_ALBUM_BY_ID = "SELECT genreId, artistId, title, price, albumArtUrl FROM ALBUM WHERE albumId = ?";
 	private static final String SORT_BY_GENRE = "SELECT title, albumId FROM ALBUM WHERE genreId = ?";
 	private static final String ALBUM_INDEX = "SELECT albumId, genreId, artistId, title, price, albumArtUrl FROM ALBUM";
-	private static final String UPDATE_ALBUM = "UPDATE ALBUM SET genreId=?, artistId=?, title=?, price=?, albumArtUrl WHERE albumId=?";
-
-	
+	private static final String UPDATE_ALBUM = "UPDATE ALBUM SET genreId=?, artistId=?, title=?, price=?, albumArtUrl=? WHERE albumId=?";
+    private static final String CREATE_ALBUM = "INSERT INTO ALBUM(albumId, artistId, genreId, title, price, albumArtUrl) VALUES(?,?,?,?,?,?)";
+	private static final String DELETE_ALBUM = "DELETE FROM ALBUM WHERE albumId = ?";
 	@Override
 	public List<Album> albumIndex() {
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
@@ -46,7 +47,13 @@ public class AlbumDaoImpl implements AlbumDao {
 			int albumId = Integer.parseInt(albumRow.get("albumId").toString());
 			int genreId = Integer.parseInt(albumRow.get("genreId").toString());
 			int artistId = Integer.parseInt(albumRow.get("artistId").toString());
-			String title = albumRow.get("title").toString();
+			String title;
+			if(albumRow.get("title") != null){
+				 title = albumRow.get("title").toString();
+			}else{
+				 title = "N/A";
+			}
+			
 			BigDecimal price = (BigDecimal) albumRow.get("price");
 		
 			alb.setAlbumId(albumId);
@@ -74,10 +81,7 @@ public class AlbumDaoImpl implements AlbumDao {
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
 		GenreDao gd = ctx.getBean("genreDao", GenreDao.class);
 		ArtistDao ad = ctx.getBean("artistDao", ArtistDao.class);
-		
-		
-		
-		
+	
 		List<Map<String,Object>> albumRows = jdbcTemplate.queryForList(BROWSE_ALBUM_BY_ID, albumId);
 		Album alb = new Album();
 		for(Map<String,Object> albumRow : albumRows){
@@ -103,23 +107,55 @@ public class AlbumDaoImpl implements AlbumDao {
 
 	@Override
 	public void albumCreate(Album album) {
-		// TODO Auto-generated method stub
+		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+		int max = jdbcTemplate.queryForInt("select MAX(albumId) from ALBUM");
+		Object[] params = {
+				   max+1,
+				   album.getArtistId(),
+				   album.getGenreId(), 
+		           album.getTitle(),
+		           album.getPrice(),
+		           album.getAlbumArtUrl()};
+        int[] types = {
+        	   Types.INTEGER,
+        	   Types.INTEGER, 
+		       Types.INTEGER,
+		       Types.VARCHAR,
+		       Types.DECIMAL,
+		       Types.VARCHAR};
+        jdbcTemplate.update
+             (CREATE_ALBUM, params, types);
+		return;
 
 	}
 
 	@Override
 	public void albumUpdate(Album album) {
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
-		System.out.println(album.getGenreId());
-		jdbcTemplate.update(UPDATE_ALBUM, album.getGenreId(),album.getArtistId(),album.getTitle(),album.getPrice(),album.getAlbumArtUrl(),album.getAlbumId());
-		)
+	
+		Object[] params = {album.getGenreId(),
+				           album.getArtistId(),
+				           album.getTitle(),
+				           album.getPrice(),
+				           album.getAlbumArtUrl(),
+				           album.getAlbumId()};
+		int[] types = {Types.INTEGER, 
+				       Types.INTEGER,
+				       Types.VARCHAR,
+				       Types.DECIMAL,
+				       Types.VARCHAR,
+				       Types.INTEGER};
+		jdbcTemplate.update
+		(UPDATE_ALBUM, params, types);
+		
 		return;
 	}
 
 	@Override
-	public void albumDelete(Long albumId) {
-		
-
+	public void albumDelete(int albumId) {
+		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+		jdbcTemplate.update(DELETE_ALBUM, albumId);
+		return;
 	}
 
 	@Override
@@ -134,8 +170,7 @@ public class AlbumDaoImpl implements AlbumDao {
 			alb.setTitle(String.valueOf(albumRow.get("title")));
 			
 			int test = Integer.parseInt(albumRow.get("albumId").toString());
-			
-			
+
 			alb.setAlbumId(test);
 			albumList.add(alb);
 		}

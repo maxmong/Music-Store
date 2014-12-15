@@ -1,13 +1,23 @@
 package com.test.model;
 
 import java.math.BigDecimal;
-import java.util.List;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Range;
 
 public class Album {
     public int albumId;
     public int genreId;
+    
+    @Range(min=3,max=5)
     public int artistId;
+    
+    @NotNull @Size(min=1)
     public String title;
+    
+    
     public BigDecimal price;
     public String albumArtUrl;
     

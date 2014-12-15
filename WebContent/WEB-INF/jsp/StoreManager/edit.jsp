@@ -12,6 +12,7 @@
       <h2>Edit</h2>Album
       
   <form:form role="form" action="../../StoreManager/editAlbum" method="POST">
+  <form:hidden path="albumId" value="${model.albumEdit.albumId }"/>
   <div class="form-group">
     <form:label path="" for="exampleInputEmail1">Genre</form:label>
     <form:select path="genreId" >

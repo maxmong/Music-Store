@@ -10,7 +10,7 @@ public interface AlbumDao {
 	public Album albumBrowse(int albumId);
 	public void albumCreate(Album album);
 	public void albumUpdate(Album album);
-	public void albumDelete(Long albumId);
+	public void albumDelete(int albumId);
 	
 	public List<Album> SortByGenre(int id);
 }

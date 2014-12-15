@@ -30,6 +30,7 @@
     ${model.albumEdit.albumArtUrl }
     </li>
     </ul>
- <a href="../../StoreManager/Delete/${model.albumEdit.albumId }">Delete</a> | <a href="/Test_spring/StoreManager">Back to List</a>
+    Are you sure you want to delete the album titled ${model.albumEdit.title }<br>
+ <a href="../../StoreManager/Deleted/${model.albumEdit.albumId }">Delete</a> | <a href="/Test_spring/StoreManager">Back to List</a>
     </jsp:body>
 </t:genericpage>
